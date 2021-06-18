@@ -1,0 +1,34 @@
+
+body {
+    padding:20px;
+}
+
+.box {
+    margin:100px 0px;
+}
+
+.ignore {
+    display: flex;
+    flex-direction: column;
+    margin:5px;
+}
+
+.ignoreButton {
+    margin:5px;
+}
+
+.included {
+    background-color: grey;
+}
+
+.number {
+    font-size: 5em;
+    margin:20px;
+    margin-bottom: 400px;
+}
+
+.key {
+    font-size: 4em;
+    margin:60px
+
+}
