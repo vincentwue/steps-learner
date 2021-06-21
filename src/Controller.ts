@@ -82,10 +82,11 @@ export default class RandomController {
     }
 
     public nextNumber() {
-        const n = randomFromArray(numbers.filter(n => n !== this._number).filter(n => !this._ignore.includes(n)))
-        if (!n) {
-            this.nextNumber()
-            return
+        let n = "0"
+        let i = 0
+        while (n === "0" && i<100) {
+            n = randomFromArray(numbers.filter(n => n !== this._number).filter(n => !this._ignore.includes(n)))
+            i++
         }
         this._number = n
         this.publish()

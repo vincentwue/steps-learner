@@ -20,7 +20,7 @@ function App() {
 
   console.log(state)
 
-  const ignore = [...keys, /* ...numbers */].map(s => <button
+  const ignore = [...keys,  ...numbers ].map(s => <button
     className={(state?.ignore.includes(s) ? classes.ignored : classes.included) + " " + classes.ignoreButton}
     onClick={e => {
       if (state) {
@@ -51,6 +51,8 @@ function App() {
           controller.ignore = []
         }
       }}>all</button></div>
+
+
       <div className={classes.ignore}>{ignore}</div>
 
     </div>
