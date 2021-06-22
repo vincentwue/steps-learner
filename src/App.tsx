@@ -12,6 +12,9 @@ function App() {
 
   const [controller] = useState(new RandomController())
 
+  const [hideNumber, setHideNumber] = useState(false)
+  const [filterDurMoll, setFilterDurMoll] = useState(false)
+
   useEffect(() => {
     setState(controller.state)
     controller.onChange.subscribe(state => {
@@ -36,6 +39,8 @@ function App() {
     }}>{s}</button>)
 
   const options = [
+    <option value="500">0.3 second</option>,
+    <option value="500">0.4 second</option>,
     <option value="500">0.5 second</option>,
     <option value="600">0.6 second</option>,
     <option value="700">0.7 second</option>,
@@ -59,8 +64,29 @@ function App() {
 
 
       <div className={classes.box}>
-        <div className={classes.key}>{state?.key}</div>
-        <div className={classes.number}>{state?.number}</div>
+        <div className={classes.key}>{
+          !filterDurMoll ? state?.key
+          : state?.key.replace(" Dur", "").replace(" Moll", "")
+        }</div>
+        {!hideNumber &&
+          <div className={classes.number}>{state?.number}</div>
+
+        }
+      </div>
+
+  
+
+      <div>
+
+        <button onClick={e => {
+          setHideNumber(!hideNumber)
+        }}>hide number</button>
+      </div>
+      <div>
+
+        <button onClick={e => {
+          setFilterDurMoll(!filterDurMoll)
+        }}>filter dur moll</button>
       </div>
 
       <div><button onClick={e => {
@@ -70,7 +96,6 @@ function App() {
           controller.ignore = []
         }
       }}>all</button></div>
-
 
       <div className={classes.ignore}>{ignore}</div>
       <div className={classes.flexcolumn}>

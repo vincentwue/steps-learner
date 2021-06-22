@@ -12,6 +12,7 @@ body {
 
 .box {
     margin:100px 0px;
+    min-height: 700px;
 }
 
 .ignore {
@@ -57,6 +58,7 @@ select {
 button {
     width:200px;
     font-size:1.3em;
+    margin:5px;
 }
 
 .flexcolumn {
