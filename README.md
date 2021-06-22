@@ -1,46 +1,35 @@
-# Getting Started with Create React App
+# Musical scale steps learner
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+"It is important to learn all the modes in every key all over your guitar.
+Its a big order.
+But in order to be free with that information technically,
+you have to get passed this memorization state,
+you have to get pass the visualisation state,
+and then you have to get past the whole concept of
+why you'd want to recognize a modal position
+that you're in and then how you would react to it again."
+- Joe Satrian
 
-## Available Scripts
+https://www.youtube.com/watch?v=KlVpR0cl1Uo
+https://www.youtube.com/watch?v=GI1gpDEt4Eg
 
-In the project directory, you can run:
+This small app helps me with learning this awesome shit.
 
-### `yarn start`
+It simply shows a key and a step of the scale.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The magic begins when we randomly change both.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You can start very small with one key and two steps or so.
 
-### `yarn test`
+And build up your skills gradually.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Also, you can choose the time interval for the random changes.
 
-### `yarn build`
+## Features and Development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The small app grows with my own learning process.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Feel free to ask for specific features,
+maybe I find them useful and want to implement them.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Stay tuned.

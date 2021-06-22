@@ -13,14 +13,15 @@ function App() {
   const [controller] = useState(new RandomController())
 
   useEffect(() => {
+    setState(controller.state)
     controller.onChange.subscribe(state => {
       setState(state)
     })
-  }, [])
+  }, [controller, setState])
 
   console.log(state)
 
-  const ignore = [...keys,  ...numbers ].map(s => <button
+  const ignore = [...keys, ...numbers].map(s => <button
     className={(state?.ignore.includes(s) ? classes.ignored : classes.included) + " " + classes.ignoreButton}
     onClick={e => {
       if (state) {
@@ -34,6 +35,19 @@ function App() {
       }
     }}>{s}</button>)
 
+  const options = [
+    <option value="500">0.5 second</option>,
+    <option value="1000">1 second</option>,
+    <option value="2000">2 seconds</option>,
+    <option value="3000">3 seconds</option>,
+    <option value="4000">4 seconds</option>,
+    <option value="5000">5 seconds</option>,
+    <option value="7000">7 seconds</option>,
+    <option value="10000">12 seconds</option>,
+    <option value="12000">12 seconds</option>,
+    <option value="20000">20 seconds</option>,
+    <option value="30000">30 seconds</option>,
+  ]
   return (
     <div className="App">
       <div><button onClick={e => controller.nextKey()}>next key</button></div>
@@ -54,7 +68,53 @@ function App() {
 
 
       <div className={classes.ignore}>{ignore}</div>
+      <div className={classes.flexcolumn}>
 
+
+
+
+        <div className={classes.flexrow}>
+
+
+
+          key change interval:
+          <select name="keys" id="keyID"
+            onChange={e => {
+              controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
+            }}>
+
+            <option value="10000">10 seconds (standard)</option>
+
+            {options}
+
+          </select>
+        </div>
+
+        <div className={classes.flexrow}>
+
+
+
+          step change interval:
+          <select name="numbers" id="numberID" /* value={state?.numberChangeInterval.toString() && "2000"} */
+            onChange={e => {
+              controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
+            }}>
+
+            <option value="2000">2 seconds (standard)</option>
+
+            {options}
+
+          </select>
+        </div>
+
+        <div className={classes.flexrow}>
+
+
+          <a target="_blank" href={"https://github.com/vincentwue/steps-learner"} >More information on Github</a>
+
+        </div>
+
+      </div>
     </div>
   );
 }
