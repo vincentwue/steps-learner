@@ -37,6 +37,11 @@ function App() {
 
   const options = [
     <option value="500">0.5 second</option>,
+    <option value="600">0.6 second</option>,
+    <option value="700">0.7 second</option>,
+    <option value="800">0.8 second</option>,
+    <option value="900">0.9 second</option>,
+    <option value="1000">1 second</option>,
     <option value="1000">1 second</option>,
     <option value="2000">2 seconds</option>,
     <option value="3000">3 seconds</option>,
