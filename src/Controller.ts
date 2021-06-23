@@ -11,6 +11,8 @@ export const keys = [
     "D Moll",
     "C Moll",
 
+    "B Moll",
+
     "F Dur",
     "E Dur",
 
@@ -23,6 +25,8 @@ export const keys = [
 
     "F Moll",
 
+    "D Dur",
+
 
     "G Moll",
 
@@ -30,7 +34,7 @@ export const keys = [
     "G# Moll",
 
     "A Dur ",
-    "F# moll ",
+    "F# Moll ",
 
     "Gb Dur",
     "Eb Moll",
@@ -68,14 +72,14 @@ export default class RandomController {
 
     private _onChange = new Subject<IState>()
 
-    private _numberChangeInterval: number = 2000
-    private _keyChangeInterval: number = 10000
+    private _numberChangeInterval: number = 1500
+    private _keyChangeInterval: number = 12000
 
     constructor() {
         this.nextNumber()
         this.nextKey()
         this.publish()
-        this.startIntervals(10000, 2000)
+        this.startIntervals(12000, 1500)
     }
 
     private _keyIntervalId: number | undefined

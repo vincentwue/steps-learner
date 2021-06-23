@@ -47,13 +47,13 @@ function App() {
     <option value="800">0.8 second</option>,
     <option value="900">0.9 second</option>,
     <option value="1000">1 second</option>,
-    <option value="1000">1 second</option>,
+    <option value="1500">1.5 seconds</option>,
     <option value="2000">2 seconds</option>,
     <option value="3000">3 seconds</option>,
     <option value="4000">4 seconds</option>,
     <option value="5000">5 seconds</option>,
     <option value="7000">7 seconds</option>,
-    <option value="10000">12 seconds</option>,
+    <option value="10000">10 seconds</option>,
     <option value="12000">12 seconds</option>,
     <option value="20000">20 seconds</option>,
     <option value="30000">30 seconds</option>,
@@ -113,7 +113,7 @@ function App() {
               controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
             }}>
 
-            <option value="10000">10 seconds (standard)</option>
+            <option value="12000">12 seconds (standard)</option>
 
             {options}
 
@@ -130,7 +130,7 @@ function App() {
               controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
             }}>
 
-            <option value="2000">2 seconds (standard)</option>
+            <option value="1500">1.5 seconds (standard)</option>
 
             {options}
 

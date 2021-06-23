@@ -1,5 +1,7 @@
 # Musical scale steps learner
 
+[Steps Learner](https://vincentwue.github.io/steps-learner/)
+
 "It is important to learn all the modes in every key all over your guitar.
 Its a big order.
 But in order to be free with that information technically,
@@ -8,10 +10,10 @@ you have to get pass the visualisation state,
 and then you have to get past the whole concept of
 why you'd want to recognize a modal position
 that you're in and then how you would react to it again."
-- Joe Satrian
+- Joe Satriani
 
-https://www.youtube.com/watch?v=KlVpR0cl1Uo
-https://www.youtube.com/watch?v=GI1gpDEt4Eg
+[Joe Satriani Lesson: Modes Part 1](https://www.youtube.com/watch?v=KlVpR0cl1Uo)
+[Joe Satriani Lesson: Modes Part 2](https://www.youtube.com/watch?v=GI1gpDEt4Eg)
 
 This small app helps me with learning this awesome shit.
 
