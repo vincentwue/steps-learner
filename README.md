@@ -13,6 +13,7 @@ that you're in and then how you would react to it again."
 - Joe Satriani
 
 [Joe Satriani Lesson: Modes Part 1](https://www.youtube.com/watch?v=KlVpR0cl1Uo)
+
 [Joe Satriani Lesson: Modes Part 2](https://www.youtube.com/watch?v=GI1gpDEt4Eg)
 
 This small app helps me with learning this awesome shit.
