@@ -5,8 +5,8 @@
 "It is important to learn all the modes in every key all over your guitar.
 Its a big order.
 But in order to be free with that information technically,
-you have to get passed this memorization state,
-you have to get pass the visualisation state,
+you have to get past this memorization state,
+you have to get past the visualisation state,
 and then you have to get past the whole concept of
 why you'd want to recognize a modal position
 that you're in and then how you would react to it again."
