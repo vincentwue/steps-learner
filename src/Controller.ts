@@ -4,46 +4,43 @@ import { Subject } from "rxjs"
 export const keys = [
     "C Dur",
     "G Dur",
-
+    "D Dur",
+    "A Dur ",
+    "E Dur",
+    "B Dur ",
+    "Gb Dur",
+    "Db Dur",
     "Ab Dur",
     "Eb Dur",
-
-    "D Moll",
-    "C Moll",
-
-    "B Moll",
-
-    "F Dur",
-    "E Dur",
-
-    "A Moll",
-
-
     "Bb Dur",
-
-    "E Moll",
-
-    "F Moll",
-
-    "D Dur",
+    "F Dur",
 
 
-    "G Moll",
-
-    "B Dur ",
-    "G# Moll",
-
-    "A Dur ",
-    "F# Moll ",
-
-    "Gb Dur",
-    "Eb Moll",
 
 
-    "C# Moll",
 
-    "Db Dur",
-    "Bb Moll",
+
+
+
+    // "A Moll",
+    // "E Moll",
+    // "F Moll",
+    // "D Moll",
+    // "C Moll",
+
+    // "B Moll",
+    // "G Moll",
+
+    // "G# Moll",
+
+    // "F# Moll ",
+
+    // "Eb Moll",
+
+
+    // "C# Moll",
+
+    // "Bb Moll",
 ]
 
 export const numbers = [
@@ -60,20 +57,28 @@ export interface IState {
     number: string
     key: string
     ignore: string[]
-    keyChangeInterval:number
-    numberChangeInterval:number
+    keyChangeInterval: number
+    numberChangeInterval: number
+}
+
+export enum Order {
+    Random = "random",
+    Quinten = "quinten",
+    Quarten = "quarten",
 }
 
 export default class RandomController {
 
     private _key = keys[1]
     private _number = numbers[1]
-    private _ignore: string[] = [...keys]
+    private _ignore: string[] = []
 
     private _onChange = new Subject<IState>()
 
     private _numberChangeInterval: number = 1500
     private _keyChangeInterval: number = 12000
+
+    private _order: Order = Order.Quinten
 
     constructor() {
         this.nextNumber()
@@ -85,6 +90,10 @@ export default class RandomController {
     private _keyIntervalId: number | undefined
     private _numberIntervalId: number | undefined
 
+    public set order(order: Order) {
+        this._order = order
+    }
+
     public startIntervals(keyInterval: number, numberInterval: number) {
 
         if (this._numberIntervalId !== undefined) {
@@ -94,7 +103,7 @@ export default class RandomController {
             window.clearInterval(this._keyIntervalId)
         }
 
-        
+
         this._numberChangeInterval = numberInterval
         this._keyChangeInterval = keyInterval
         console.log(this.state)
@@ -137,6 +146,22 @@ export default class RandomController {
     }
 
     public nextKey() {
+        const filteredKeys = keys.filter(n => !this._ignore.includes(n))
+        const currentIndex = filteredKeys.indexOf(this._key)
+        if (this._order === Order.Random) {
+            this.nextRandomKey()
+        } else if (this._order === Order.Quinten) {
+            this._key = filteredKeys[(currentIndex + 1) % filteredKeys.length]
+            this.publish()
+        } else if (this._order === Order.Quarten) {
+            this._key = filteredKeys[(currentIndex - 1) % filteredKeys.length]
+            this.publish()
+        }
+
+
+    }
+
+    private nextRandomKey() {
         let k = undefined
         let i = 0
         while (!k && i < 100) {

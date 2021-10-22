@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import RandomController, { IState, keys, numbers } from './Controller';
+import RandomController, { IState, keys, numbers, Order } from './Controller';
 import { classicNameResolver } from 'typescript';
 
 import classes from "./App.module.css"
@@ -38,7 +38,7 @@ function App() {
       }
     }}>{s}</button>)
 
-  const options = [
+  const options:any = [
     <option value="500">0.3 second</option>,
     <option value="500">0.4 second</option>,
     <option value="500">0.5 second</option>,
@@ -57,6 +57,13 @@ function App() {
     <option value="12000">12 seconds</option>,
     <option value="20000">20 seconds</option>,
     <option value="30000">30 seconds</option>,
+    <option value="60000">60 seconds</option>,
+    <option value="90000">90 seconds</option>,
+    <option value="120000">2 mins</option>,
+    <option value="180000">3 mins</option>,
+    <option value="240000">4 mins</option>,
+    <option value="300000">5 mins</option>,
+    <option value="360000">6 mins</option>,
   ]
   return (
     <div className="App">
@@ -113,7 +120,7 @@ function App() {
               controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
             }}>
 
-            <option value="12000">12 seconds (standard)</option>
+            <option value="180000">3 mins (standard)</option>
 
             {options}
 
@@ -130,9 +137,28 @@ function App() {
               controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
             }}>
 
-            <option value="1500">1.5 seconds (standard)</option>
+            <option value="2000">2 seconds (standard)</option>
 
             {options}
+
+          </select>
+        </div>
+
+        <div className={classes.flexrow}>
+
+
+
+          order:
+          <select name="order" id="orderID" /* value={state?.numberChangeInterval.toString() && "2000"} */
+            onChange={e => {
+              controller.order = e.target.value as Order
+            }}>
+
+            <option value={Order.Quinten}>Quinten</option>
+            <option value={Order.Quarten}>Quarten</option>
+            <option value={Order.Random}>Random</option>
+
+           
 
           </select>
         </div>
