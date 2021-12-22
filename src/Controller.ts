@@ -2,18 +2,30 @@ import { Subject } from "rxjs"
 
 
 export const keys = [
+
+    "F Dur",
     "C Dur",
     "G Dur",
     "D Dur",
     "A Dur ",
     "E Dur",
     "B Dur ",
+    
     "Gb Dur",
     "Db Dur",
     "Ab Dur",
     "Eb Dur",
     "Bb Dur",
-    "F Dur",
+
+    "C#",
+    "D#",
+    "F#",
+    "G#",
+    "A#",
+
+
+    // "E#",
+    // "H#",
 
 
 
@@ -64,7 +76,9 @@ export interface IState {
 export enum Order {
     Random = "random",
     Quinten = "quinten",
+    Quinten2 = "quinten2",
     Quarten = "quarten",
+    Quarten2 = "quarten2",
 }
 
 export default class RandomController {
@@ -95,6 +109,7 @@ export default class RandomController {
     }
 
     public startIntervals(keyInterval: number, numberInterval: number) {
+        console.error("Start", keyInterval, numberInterval)
 
         if (this._numberIntervalId !== undefined) {
             window.clearInterval(this._numberIntervalId)
@@ -153,8 +168,14 @@ export default class RandomController {
         } else if (this._order === Order.Quinten) {
             this._key = filteredKeys[(currentIndex + 1) % filteredKeys.length]
             this.publish()
+        } else if (this._order === Order.Quinten2) {
+            this._key = filteredKeys[(currentIndex + 2) % filteredKeys.length]
+            this.publish()
         } else if (this._order === Order.Quarten) {
             this._key = filteredKeys[(currentIndex - 1) % filteredKeys.length]
+            this.publish()
+        } else if (this._order === Order.Quarten2) {
+            this._key = filteredKeys[(currentIndex - 2) % filteredKeys.length]
             this.publish()
         }
 

@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 import RandomController, { IState, keys, numbers, Order } from './Controller';
-import { classicNameResolver } from 'typescript';
 
 import classes from "./App.module.css"
+
+const controller = new RandomController()
 
 function App() {
 
   const [state, setState] = useState<IState>()
 
-  const [controller] = useState(new RandomController())
 
   const [hideNumber, setHideNumber] = useState(false)
   const [filterDurMoll, setFilterDurMoll] = useState(false)
@@ -68,6 +67,11 @@ function App() {
   return (
     <div className="App">
       <div><button onClick={e => controller.nextKey()}>next key</button></div>
+      <div><button onClick={e => {
+        controller.startIntervals(2000, 3000);
+        setHideNumber(true)
+        setFilterDurMoll(true)
+      }}>learn hashmap</button></div>
 
 
       <div className={classes.box}>
@@ -117,6 +121,7 @@ function App() {
           key change interval:
           <select name="keys" id="keyID"
             onChange={e => {
+              console.log("ONCHANGE1", e.target.value)
               controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
             }}>
 
@@ -134,6 +139,7 @@ function App() {
           step change interval:
           <select name="numbers" id="numberID" /* value={state?.numberChangeInterval.toString() && "2000"} */
             onChange={e => {
+              console.log("ONCHANGE2", e.target.value)
               controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
             }}>
 
@@ -155,7 +161,9 @@ function App() {
             }}>
 
             <option value={Order.Quinten}>Quinten</option>
+            <option value={Order.Quinten2}>Quinten 2</option>
             <option value={Order.Quarten}>Quarten</option>
+            <option value={Order.Quarten2}>Quarten 2</option>
             <option value={Order.Random}>Random</option>
 
            
