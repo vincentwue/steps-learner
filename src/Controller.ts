@@ -63,6 +63,11 @@ export const numbers = [
     "5",
     "6",
     "7",
+    
+    "9",
+    "11",
+    "13",
+
 ]
 
 export interface IState {
