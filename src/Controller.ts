@@ -144,7 +144,7 @@ export default class RandomController {
     private _onChange = new Subject<IState>()
 
     private _numberChangeInterval: number = 1500
-    private _keyChangeInterval: number = 120000
+    private _keyChangeInterval: number = 60000
 
     private _order: Order = Order.Quinten
 
@@ -152,7 +152,7 @@ export default class RandomController {
         this.nextNumber()
         this.nextKey()
         this.publish()
-        this.startIntervals(120000, 1500)
+        this.startIntervals(60000, 1500)
     }
 
     private _keyIntervalId: number | undefined
