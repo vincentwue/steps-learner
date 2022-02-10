@@ -125,7 +125,7 @@ function App() {
               controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
             }}>
 
-            <option value="180000">3 mins (standard)</option>
+            <option value="60000">1 mins (standard)</option>
 
             {options}
 
@@ -143,7 +143,7 @@ function App() {
               controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
             }}>
 
-            <option value="2000">2 seconds (standard)</option>
+            <option value="1500">1.5 seconds (standard)</option>
 
             {options}
 
