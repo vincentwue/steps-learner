@@ -1,0 +1,26 @@
+export const Scales = [{ "rootNote": { "id": "C", "flat": "C", "sharp": "C" }, "notes": [{ "id": "C", "flat": "C", "sharp": "C" }, { "id": "D", "flat": "D", "sharp": "D" }, { "id": "E", "flat": "E", "sharp": "E" }, { "id": "F", "flat": "F", "sharp": "F" }, { "id": "G", "flat": "G", "sharp": "G" }, { "id": "A", "flat": "A", "sharp": "A" }, { "id": "B", "flat": "B", "sharp": "B" }] }, { "rootNote": { "id": "Db", "flat": "Db", "sharp": "C#" }, "notes": [{ "id": "Db", "flat": "Db", "sharp": "C#" }, { "id": "Eb", "flat": "Eb", "sharp": "D#" }, { "id": "F", "flat": "F", "sharp": "F" }, { "id": "Gb", "flat": "Gb", "sharp": "F#" }, { "id": "Ab", "flat": "Ab", "sharp": "G#" }, { "id": "Bb", "flat": "Bb", "sharp": "A#" }, { "id": "C", "flat": "C", "sharp": "C" }] }, { "rootNote": { "id": "D", "flat": "D", "sharp": "D" }, "notes": [{ "id": "D", "flat": "D", "sharp": "D" }, { "id": "E", "flat": "E", "sharp": "E" }, { "id": "Gb", "flat": "Gb", "sharp": "F#" }, { "id": "G", "flat": "G", "sharp": "G" }, { "id": "A", "flat": "A", "sharp": "A" }, { "id": "B", "flat": "B", "sharp": "B" }, { "id": "Db", "flat": "Db", "sharp": "C#" }] }, { "rootNote": { "id": "Eb", "flat": "Eb", "sharp": "D#" }, "notes": [{ "id": "Eb", "flat": "Eb", "sharp": "D#" }, { "id": "F", "flat": "F", "sharp": "F" }, { "id": "G", "flat": "G", "sharp": "G" }, { "id": "Ab", "flat": "Ab", "sharp": "G#" }, { "id": "Bb", "flat": "Bb", "sharp": "A#" }, { "id": "C", "flat": "C", "sharp": "C" }, { "id": "D", "flat": "D", "sharp": "D" }] }, { "rootNote": { "id": "E", "flat": "E", "sharp": "E" }, "notes": [{ "id": "E", "flat": "E", "sharp": "E" }, { "id": "Gb", "flat": "Gb", "sharp": "F#" }, { "id": "Ab", "flat": "Ab", "sharp": "G#" }, { "id": "A", "flat": "A", "sharp": "A" }, { "id": "B", "flat": "B", "sharp": "B" }, { "id": "Db", "flat": "Db", "sharp": "C#" }, { "id": "Eb", "flat": "Eb", "sharp": "D#" }] }, { "rootNote": { "id": "F", "flat": "F", "sharp": "F" }, "notes": [{ "id": "F", "flat": "F", "sharp": "F" }, { "id": "G", "flat": "G", "sharp": "G" }, { "id": "A", "flat": "A", "sharp": "A" }, { "id": "Bb", "flat": "Bb", "sharp": "A#" }, { "id": "C", "flat": "C", "sharp": "C" }, { "id": "D", "flat": "D", "sharp": "D" }, { "id": "E", "flat": "E", "sharp": "E" }] }, { "rootNote": { "id": "Gb", "flat": "Gb", "sharp": "F#" }, "notes": [{ "id": "Gb", "flat": "Gb", "sharp": "F#" }, { "id": "Ab", "flat": "Ab", "sharp": "G#" }, { "id": "Bb", "flat": "Bb", "sharp": "A#" }, { "id": "B", "flat": "B", "sharp": "B" }, { "id": "Db", "flat": "Db", "sharp": "C#" }, { "id": "Eb", "flat": "Eb", "sharp": "D#" }, { "id": "F", "flat": "F", "sharp": "F" }] }, { "rootNote": { "id": "G", "flat": "G", "sharp": "G" }, "notes": [{ "id": "G", "flat": "G", "sharp": "G" }, { "id": "A", "flat": "A", "sharp": "A" }, { "id": "B", "flat": "B", "sharp": "B" }, { "id": "C", "flat": "C", "sharp": "C" }, { "id": "D", "flat": "D", "sharp": "D" }, { "id": "E", "flat": "E", "sharp": "E" }, { "id": "Gb", "flat": "Gb", "sharp": "F#" }] }, { "rootNote": { "id": "Ab", "flat": "Ab", "sharp": "G#" }, "notes": [{ "id": "Ab", "flat": "Ab", "sharp": "G#" }, { "id": "Bb", "flat": "Bb", "sharp": "A#" }, { "id": "C", "flat": "C", "sharp": "C" }, { "id": "Db", "flat": "Db", "sharp": "C#" }, { "id": "Eb", "flat": "Eb", "sharp": "D#" }, { "id": "F", "flat": "F", "sharp": "F" }, { "id": "G", "flat": "G", "sharp": "G" }] }, { "rootNote": { "id": "A", "flat": "A", "sharp": "A" }, "notes": [{ "id": "A", "flat": "A", "sharp": "A" }, { "id": "B", "flat": "B", "sharp": "B" }, { "id": "Db", "flat": "Db", "sharp": "C#" }, { "id": "D", "flat": "D", "sharp": "D" }, { "id": "E", "flat": "E", "sharp": "E" }, { "id": "Gb", "flat": "Gb", "sharp": "F#" }, { "id": "Ab", "flat": "Ab", "sharp": "G#" }] }, { "rootNote": { "id": "Bb", "flat": "Bb", "sharp": "A#" }, "notes": [{ "id": "Bb", "flat": "Bb", "sharp": "A#" }, { "id": "C", "flat": "C", "sharp": "C" }, { "id": "D", "flat": "D", "sharp": "D" }, { "id": "Eb", "flat": "Eb", "sharp": "D#" }, { "id": "F", "flat": "F", "sharp": "F" }, { "id": "G", "flat": "G", "sharp": "G" }, { "id": "A", "flat": "A", "sharp": "A" }] }, { "rootNote": { "id": "B", "flat": "B", "sharp": "B" }, "notes": [{ "id": "B", "flat": "B", "sharp": "B" }, { "id": "Db", "flat": "Db", "sharp": "C#" }, { "id": "Eb", "flat": "Eb", "sharp": "D#" }, { "id": "E", "flat": "E", "sharp": "E" }, { "id": "Gb", "flat": "Gb", "sharp": "F#" }, { "id": "Ab", "flat": "Ab", "sharp": "G#" }, { "id": "Bb", "flat": "Bb", "sharp": "A#" }] }]
+
+console.log("scales", Scales)
+
+const flatScales = [
+
+    "F Dur",
+
+
+    "Gb Dur",
+    "Db Dur",
+    "Ab Dur",
+    "Eb Dur",
+    "Bb Dur",
+]
+
+export function getNoteFromStep(key: string = "", step: string = "") {
+    const rootNote = key.split(" ")[0]
+    const index = parseFloat(step) - 1
+    const scale = Scales.find(scale => scale.rootNote.id === rootNote)
+    const note = scale?.notes[index]
+    console.log({ rootNote, index, scale, note })
+
+    const sharpOrFlat = (flatScales.includes(key)) ? note?.flat : note?.sharp 
+    return sharpOrFlat
+}

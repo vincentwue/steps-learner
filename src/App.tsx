@@ -3,6 +3,7 @@ import './App.css';
 import RandomController, { IState, keys, numbers, Order } from './Controller';
 
 import classes from "./App.module.css"
+import { getNoteFromStep, Scales } from './scales';
 
 const controller = new RandomController()
 
@@ -13,6 +14,7 @@ function App() {
 
   const [hideNumber, setHideNumber] = useState(false)
   const [filterDurMoll, setFilterDurMoll] = useState(false)
+  const [showScaleNotes, setShowScaleNotes] = useState(false)
 
   useEffect(() => {
     setState(controller.state)
@@ -37,7 +39,7 @@ function App() {
       }
     }}>{s}</button>)
 
-  const options:any = [
+  const options: any = [
     <option value="500">0.3 second</option>,
     <option value="500">0.4 second</option>,
     <option value="500">0.5 second</option>,
@@ -64,41 +66,58 @@ function App() {
     <option value="300000">5 mins</option>,
     <option value="360000">6 mins</option>,
   ]
+
+  const key = !filterDurMoll ? state?.key : state?.key.replace(" Dur", "").replace(" Moll", "")
+  const number = !showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
+  console.log(Scales)
+
   return (
     <div className="App">
       <div><button onClick={e => controller.nextKey()}>next key</button></div>
-      <div><button onClick={e => {
+      {/* <div><button onClick={e => {
         controller.startIntervals(2000, 3000);
         setHideNumber(true)
         setFilterDurMoll(true)
-      }}>learn hashmap</button></div>
+      }}>learn hashmap</button></div> */}
 
 
       <div className={classes.box}>
         <div className={classes.key}>{
-          !filterDurMoll ? state?.key
-          : state?.key.replace(" Dur", "").replace(" Moll", "")
+          key
         }</div>
         {!hideNumber &&
-          <div className={classes.number}>{state?.number}</div>
+          <div className={classes.number}>{number}</div>
 
         }
       </div>
 
-  
+
 
       <div>
-
-        <button onClick={e => {
-          setHideNumber(!hideNumber)
-        }}>hide number</button>
+        <button
+          style={{ backgroundColor: hideNumber ? "green" : "initial" }}
+          onClick={e => {
+            setHideNumber(!hideNumber)
+          }}>hide number</button>
       </div>
+
+
       <div>
-
-        <button onClick={e => {
-          setFilterDurMoll(!filterDurMoll)
-        }}>filter dur moll</button>
+        <button style={{ backgroundColor: filterDurMoll ? "green" : "initial" }}
+          onClick={e => {
+            setFilterDurMoll(!filterDurMoll)
+          }}>filter dur moll</button>
       </div>
+
+
+      <div >
+        <button style={{ backgroundColor: showScaleNotes ? "green" : "initial" }}
+          onClick={e => {
+            setShowScaleNotes(!showScaleNotes)
+          }}>show scale notes</button>
+      </div>
+
+
 
       <div><button onClick={e => {
         if (state?.ignore.length === 0) {
@@ -166,7 +185,7 @@ function App() {
             <option value={Order.Quarten2}>Quarten 2</option>
             <option value={Order.Random}>Random</option>
 
-           
+
 
           </select>
         </div>
