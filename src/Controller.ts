@@ -1,6 +1,33 @@
 import { Subject } from "rxjs"
 
 
+export const baseKeys = [
+
+    "F Dur",
+    "C Dur",
+    "G Dur",
+    "D Dur",
+    "A Dur ",
+    "E Dur",
+    "B Dur ",
+]
+export const sharpKeys = [
+
+    "C#",
+    "D#",
+    "F#",
+    "G#",
+    "A#",
+]
+export const flatKeys = [
+
+    "Gb Dur",
+    "Db Dur",
+    "Ab Dur",
+    "Eb Dur",
+    "Bb Dur",
+]
+
 export const keys = [
 
     "F Dur",
@@ -132,7 +159,7 @@ const startIgnore = [
     "13",
     "b13",
     
-    "b4",
+    "#4",
 
     "b6",
 
@@ -156,6 +183,9 @@ export enum Order {
     Quarten2 = "quarten2",
 }
 
+const startKeyInterval = 1500
+const startNumberInterval = 1500
+
 export default class RandomController {
 
     private _key = keys[1]
@@ -164,8 +194,8 @@ export default class RandomController {
 
     private _onChange = new Subject<IState>()
 
-    private _numberChangeInterval: number = 1500
-    private _keyChangeInterval: number = 60000
+    private _numberChangeInterval: number = startNumberInterval
+    private _keyChangeInterval: number = startKeyInterval
 
     private _order: Order = Order.Quinten
 
@@ -173,7 +203,7 @@ export default class RandomController {
         this.nextNumber()
         this.nextKey()
         this.publish()
-        this.startIntervals(60000, 1500)
+        this.startIntervals(startNumberInterval, startKeyInterval)
     }
 
     private _keyIntervalId: number | undefined

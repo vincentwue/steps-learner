@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import RandomController, { IState, keys, numbers, Order } from './Controller';
+import RandomController, { baseKeys, flatKeys, IState, keys, numbers, Order, sharpKeys } from './Controller';
 
 import classes from "./App.module.css"
 import { getNoteFromStep, Scales } from './scales';
@@ -12,9 +12,10 @@ function App() {
   const [state, setState] = useState<IState>()
 
 
-  const [hideNumber, setHideNumber] = useState(false)
-  const [filterDurMoll, setFilterDurMoll] = useState(false)
+  const [hideNumber, setHideNumber] = useState(true)
+  const [filterDurMoll, setFilterDurMoll] = useState(true)
   const [showScaleNotes, setShowScaleNotes] = useState(false)
+  const [hideNextButtons, setHideNextButtons] = useState(true)
 
   useEffect(() => {
     setState(controller.state)
@@ -73,7 +74,6 @@ function App() {
 
   return (
     <div className="App">
-      <div><button onClick={e => controller.nextKey()}>next key</button></div>
       {/* <div><button onClick={e => {
         controller.startIntervals(2000, 3000);
         setHideNumber(true)
@@ -88,6 +88,12 @@ function App() {
         {!hideNumber &&
           <div className={classes.number}>{number}</div>
 
+        }
+        {!hideNextButtons &&
+        <React.Fragment>
+          <div><button onClick={e => controller.nextKey()}>next key</button></div>
+          <div><button onClick={e => controller.nextNumber()} style={{display:hideNumber ? "none" : ""}}>next step</button></div>
+        </React.Fragment>
         }
       </div>
 
@@ -108,6 +114,12 @@ function App() {
             setFilterDurMoll(!filterDurMoll)
           }}>filter dur moll</button>
       </div>
+      <div>
+        <button style={{ backgroundColor: hideNextButtons ? "green" : "initial" }}
+          onClick={e => {
+            setHideNextButtons(!hideNextButtons)
+          }}>hide next buttons</button>
+      </div>
 
 
       <div >
@@ -126,6 +138,29 @@ function App() {
           controller.ignore = []
         }
       }}>all</button></div>
+      <div><button onClick={e => {
+        if (state?.ignore.length === 0) {
+          controller.ignore = keys
+        } else {
+          // controller.ignore = []
+          controller.ignore = [...flatKeys, ...baseKeys]
+        }
+      }}>sharps</button></div>
+      <div><button onClick={e => {
+        if (state?.ignore.length === 0) {
+          controller.ignore = keys
+        } else {
+          controller.ignore = []
+          controller.ignore = [...sharpKeys, ...baseKeys]
+        }
+      }}>flats</button></div>
+      <div><button onClick={e => {
+        if (state?.ignore.length === 0) {
+          controller.ignore = keys
+        } else {
+          controller.ignore = [...sharpKeys, ...flatKeys]
+        }
+      }}>base notes</button></div>
 
       <div className={classes.ignore}>{ignore}</div>
       <div className={classes.flexcolumn}>
@@ -144,7 +179,8 @@ function App() {
               controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
             }}>
 
-            <option value="60000">1 mins (standard)</option>
+            {/* <option value="60000">1 mins (standard)</option> */}
+            <option value="1500">1.5 seconds (standard)</option>
 
             {options}
 
