@@ -190,7 +190,7 @@ export default class RandomController {
 
     private _key = keys[1]
     private _number = numbers[1]
-    private _ignore: string[] = startIgnore
+    private _ignore: string[] = []
 
     private _onChange = new Subject<IState>()
 
