@@ -68,7 +68,7 @@ function App() {
     <option value="360000">6 mins</option>,
   ]
 
-  const key = !filterDurMoll ? state?.key : state?.key.replace(" Dur", "").replace(" Moll", "")
+  const key = !filterDurMoll ? state?.key : state?.key?.replace(" Dur", "").replace(" Moll", "")
   const number = !showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
   console.log(Scales)
 
