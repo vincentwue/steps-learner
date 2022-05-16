@@ -69,7 +69,6 @@ function App() {
 
   const key = !filterDurMoll ? state?.key : state?.key.replace(" Dur", "").replace(" Moll", "")
   const number = !showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
-  console.log(Scales)
 
   return (
     <div className="App">

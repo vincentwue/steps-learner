@@ -169,11 +169,34 @@ export default class RandomController {
 
     private _order: Order = Order.Quinten
 
+    private saveToLocalStorage() {
+        const json = {
+            _key:this._key,
+            _number:this._number,
+            _ignore:this._ignore,
+            _numberChangeInterval:this._numberChangeInterval,
+            _order:this._order,
+        }
+        localStorage.setItem("settings", JSON.stringify(json))
+    }
+
+    private loadFromLocalStorage() {
+        const json = localStorage.getItem("settings")
+        if (json) {
+            const ob = JSON.parse(json)
+            for (const [key, value ] of Object.entries(ob)) {
+                (this as any)[key] = value;
+            }
+        }
+    }
+
     constructor() {
+        
         this.nextNumber()
         this.nextKey()
+        this.startIntervals(this._keyChangeInterval, this._numberChangeInterval)
+        this.loadFromLocalStorage()
         this.publish()
-        this.startIntervals(60000, 1500)
     }
 
     private _keyIntervalId: number | undefined
@@ -221,6 +244,7 @@ export default class RandomController {
     }
 
     private publish() {
+        this.saveToLocalStorage()
         this._onChange.next(this.state)
     }
 
