@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import RandomController, { IState, keys, numbers, Order } from './Controller';
+import RandomController, { baseKeys, flatKeys, IState, keys, numbers, Order, sharpKeys } from './Controller';
 
 import classes from "./App.module.css"
 import { getNoteFromStep, Scales } from './scales';
@@ -10,11 +10,6 @@ const controller = new RandomController()
 function App() {
 
   const [state, setState] = useState<IState>()
-
-
-  const [hideNumber, setHideNumber] = useState(false)
-  const [filterDurMoll, setFilterDurMoll] = useState(false)
-  const [showScaleNotes, setShowScaleNotes] = useState(false)
 
   useEffect(() => {
     setState(controller.state)
@@ -67,12 +62,13 @@ function App() {
     <option value="360000">6 mins</option>,
   ]
 
-  const key = !filterDurMoll ? state?.key : state?.key.replace(" Dur", "").replace(" Moll", "")
-  const number = !showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
+  if (!state) return null
+
+  const key = !state.filterDurMoll ? state?.key : state?.key?.replace(" Dur", "").replace(" Moll", "")
+  const number = !state.showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
 
   return (
     <div className="App">
-      <div><button onClick={e => controller.nextKey()}>next key</button></div>
       {/* <div><button onClick={e => {
         controller.startIntervals(2000, 3000);
         setHideNumber(true)
@@ -84,9 +80,15 @@ function App() {
         <div className={classes.key}>{
           key
         }</div>
-        {!hideNumber &&
+        {!state.hideNumber &&
           <div className={classes.number}>{number}</div>
 
+        }
+        {!state.hideNextButtons &&
+        <React.Fragment>
+          <div><button className="nextKey" onClick={e => controller.nextKey()}>next key</button></div>
+          <div><button className="nextStep" onClick={e => controller.nextNumber()} style={{display:state.hideNumber ? "none" : ""}}>next step</button></div>
+        </React.Fragment>
         }
       </div>
 
@@ -94,25 +96,32 @@ function App() {
 
       <div>
         <button
-          style={{ backgroundColor: hideNumber ? "green" : "initial" }}
+          style={{ backgroundColor: state.hideNumber ? "green" : "initial" }}
           onClick={e => {
-            setHideNumber(!hideNumber)
+        
+            controller.hideNumber  = !state.hideNumber
           }}>hide number</button>
       </div>
 
 
       <div>
-        <button style={{ backgroundColor: filterDurMoll ? "green" : "initial" }}
+        <button style={{ backgroundColor: state.filterDurMoll ? "green" : "initial" }}
           onClick={e => {
-            setFilterDurMoll(!filterDurMoll)
+            controller.filterDurMoll  = !state.filterDurMoll
           }}>filter dur moll</button>
+      </div>
+      <div>
+        <button style={{ backgroundColor: state.hideNextButtons ? "green" : "initial" }}
+          onClick={e => {
+            controller.hideNextButtons = !state.hideNextButtons
+          }}>hide next buttons</button>
       </div>
 
 
       <div >
-        <button style={{ backgroundColor: showScaleNotes ? "green" : "initial" }}
+        <button style={{ backgroundColor: state.showScaleNotes ? "green" : "initial" }}
           onClick={e => {
-            setShowScaleNotes(!showScaleNotes)
+            controller.showScaleNotes  = !state.showScaleNotes
           }}>show scale notes</button>
       </div>
 
@@ -125,6 +134,29 @@ function App() {
           controller.ignore = []
         }
       }}>all</button></div>
+      <div><button onClick={e => {
+        if (state?.ignore.length === 0) {
+          controller.ignore = keys
+        } else {
+          // controller.ignore = []
+          controller.ignore = [...flatKeys, ...baseKeys]
+        }
+      }}>sharps</button></div>
+      <div><button onClick={e => {
+        if (state?.ignore.length === 0) {
+          controller.ignore = keys
+        } else {
+          controller.ignore = []
+          controller.ignore = [...sharpKeys, ...baseKeys]
+        }
+      }}>flats</button></div>
+      <div><button onClick={e => {
+        if (state?.ignore.length === 0) {
+          controller.ignore = keys
+        } else {
+          controller.ignore = [...sharpKeys, ...flatKeys]
+        }
+      }}>base notes</button></div>
 
       <div className={classes.ignore}>{ignore}</div>
       <div className={classes.flexcolumn}>
@@ -143,7 +175,9 @@ function App() {
               controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
             }}>
 
-            <option value="60000">1 mins (standard)</option>
+            {/* <option value="60000">1 mins (standard)</option> */}
+            {/* <option value="1500">1.5 seconds (standard)</option> */}
+            {options.filter((o:any) => o.value === (state.keyChangeInterval+""))}
 
             {options}
 

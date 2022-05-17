@@ -1,6 +1,33 @@
 import { Subject } from "rxjs"
 
 
+export const baseKeys = [
+
+    "F Dur",
+    "C Dur",
+    "G Dur",
+    "D Dur",
+    "A Dur ",
+    "E Dur",
+    "B Dur ",
+]
+export const sharpKeys = [
+
+    "C#",
+    "D#",
+    "F#",
+    "G#",
+    "A#",
+]
+export const flatKeys = [
+
+    "Gb Dur",
+    "Db Dur",
+    "Ab Dur",
+    "Eb Dur",
+    "Bb Dur",
+]
+
 export const keys = [
 
     "F Dur",
@@ -83,7 +110,7 @@ export const numbers = [
     "13",
     "b13",
     
-    "b4",
+    "#4",
 
     "b6",
 
@@ -132,7 +159,7 @@ const startIgnore = [
     "13",
     "b13",
     
-    "b4",
+    "#4",
 
     "b6",
 
@@ -146,6 +173,10 @@ export interface IState {
     ignore: string[]
     keyChangeInterval: number
     numberChangeInterval: number
+    filterDurMoll:boolean
+    showScaleNotes:boolean
+    hideNextButtons:boolean
+    hideNumber:boolean
 }
 
 export enum Order {
@@ -156,46 +187,105 @@ export enum Order {
     Quarten2 = "quarten2",
 }
 
+const startKeyInterval = 1500
+const startNumberInterval = 1500
+
 export default class RandomController {
 
     private _key = keys[1]
     private _number = numbers[1]
-    private _ignore: string[] = startIgnore
+    private _ignore: string[] = []
 
     private _onChange = new Subject<IState>()
 
-    private _numberChangeInterval: number = 1500
-    private _keyChangeInterval: number = 60000
+    private _numberChangeInterval: number = startNumberInterval
+    private _keyChangeInterval: number = startKeyInterval
 
     private _order: Order = Order.Quinten
 
+    private _filterDurMoll = false
+    private _showScaleNotes = false
+    private _hideNextButtons = false
+    private _hideNumber = false
+
+    public set filterDurMoll(bool : boolean) {
+        this._filterDurMoll = bool
+        this.publish()
+    }
+
+    public set showScaleNotes(bool : boolean) {
+        this._showScaleNotes = bool
+        this.publish()
+    }
+    public set hideNextButtons(bool : boolean) {
+        this._hideNextButtons = bool
+        this.publish()
+    }
+    public set hideNumber(bool : boolean) {
+        
+        this._hideNumber = bool
+        this.publish()
+    }
+    public set numberChangeInterval(n : number) {
+        this._numberChangeInterval = n
+        this.publish()
+    }
+    public set keyChangeInterval(n : number) {
+        this._keyChangeInterval = n
+        this.publish()
+    }
+    public get hideNextButtons() {
+        return this._hideNextButtons
+    }
+    public get showScaleNotes() {
+        return this._showScaleNotes
+    }
+    public get filterDurMoll() {
+        return this._filterDurMoll
+    }
+    public get hideNumber() {
+        return this._hideNumber
+    }
+    public get numberChangeInterval() {
+        return this._numberChangeInterval
+    }
+    public get keyChangeInterval() {
+        return this._keyChangeInterval
+    }
+
+
     private saveToLocalStorage() {
-        const json = {
-            _key:this._key,
-            _number:this._number,
-            _ignore:this._ignore,
-            _numberChangeInterval:this._numberChangeInterval,
-            _order:this._order,
-        }
-        localStorage.setItem("settings", JSON.stringify(json))
+        // debugger
+        localStorage.setItem("settings", JSON.stringify(this.state))
+        console.log("saved to localStorage")
     }
 
     private loadFromLocalStorage() {
         const json = localStorage.getItem("settings")
         if (json) {
+            console.log("loaded from localStorage")
             const ob = JSON.parse(json)
             for (const [key, value ] of Object.entries(ob)) {
-                (this as any)[key] = value;
+                
+                (this as any)["_" + key] = value;
+                console.log(key, value, this)
             }
         }
     }
 
+
+
     constructor() {
+
         
+        this.loadFromLocalStorage()
+        
+        this.startIntervals(this._keyChangeInterval, this._numberChangeInterval)
         this.nextNumber()
         this.nextKey()
-        this.startIntervals(this._keyChangeInterval, this._numberChangeInterval)
-        this.loadFromLocalStorage()
+
+        
+        
         this.publish()
     }
 
@@ -240,6 +330,10 @@ export default class RandomController {
             ignore: this._ignore,
             keyChangeInterval: this._keyChangeInterval,
             numberChangeInterval: this._numberChangeInterval,
+            filterDurMoll: this._filterDurMoll,
+            hideNumber: this._hideNumber,
+            hideNextButtons: this._hideNextButtons,
+            showScaleNotes: this._showScaleNotes,
         }
     }
 
