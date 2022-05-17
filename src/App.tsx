@@ -5,6 +5,37 @@ import RandomController, { baseKeys, flatKeys, IState, keys, numbers, Order, sha
 import classes from "./App.module.css"
 import { getNoteFromStep, Scales } from './scales';
 
+const options = [
+  <option value="500">0.3 seconds</option>,
+  <option value="500">0.4 seconds</option>,
+  <option value="500">0.5 seconds</option>,
+  <option value="600">0.6 seconds</option>,
+  <option value="700">0.7 seconds</option>,
+  <option value="800">0.8 seconds</option>,
+  <option value="900">0.9 seconds</option>,
+  <option value="1000">1 second</option>,
+  <option value="1500">1.5 seconds</option>,
+  <option value="2000">2 seconds</option>,
+  <option value="2300">2.3 seconds</option>,
+  <option value="2500">2.5 seconds</option>,
+  <option value="2700">2.7 seconds</option>,
+  <option value="3000">3 seconds</option>,
+  <option value="4000">4 seconds</option>,
+  <option value="5000">5 seconds</option>,
+  <option value="7000">7 seconds</option>,
+  <option value="10000">10 seconds</option>,
+  <option value="12000">12 seconds</option>,
+  <option value="20000">20 seconds</option>,
+  <option value="30000">30 seconds</option>,
+  <option value="60000">1 min</option>,
+  <option value="90000">1.5 min</option>,
+  <option value="120000">2 mins</option>,
+  <option value="180000">3 mins</option>,
+  <option value="240000">4 mins</option>,
+  <option value="300000">5 mins</option>,
+  <option value="360000">6 mins</option>,
+]
+
 const controller = new RandomController()
 
 function App() {
@@ -33,34 +64,6 @@ function App() {
 
       }
     }}>{s}</button>)
-
-  const options: any = [
-    <option value="500">0.3 second</option>,
-    <option value="500">0.4 second</option>,
-    <option value="500">0.5 second</option>,
-    <option value="600">0.6 second</option>,
-    <option value="700">0.7 second</option>,
-    <option value="800">0.8 second</option>,
-    <option value="900">0.9 second</option>,
-    <option value="1000">1 second</option>,
-    <option value="1500">1.5 seconds</option>,
-    <option value="2000">2 seconds</option>,
-    <option value="3000">3 seconds</option>,
-    <option value="4000">4 seconds</option>,
-    <option value="5000">5 seconds</option>,
-    <option value="7000">7 seconds</option>,
-    <option value="10000">10 seconds</option>,
-    <option value="12000">12 seconds</option>,
-    <option value="20000">20 seconds</option>,
-    <option value="30000">30 seconds</option>,
-    <option value="60000">60 seconds</option>,
-    <option value="90000">90 seconds</option>,
-    <option value="120000">2 mins</option>,
-    <option value="180000">3 mins</option>,
-    <option value="240000">4 mins</option>,
-    <option value="300000">5 mins</option>,
-    <option value="360000">6 mins</option>,
-  ]
 
   if (!state) return null
 
@@ -177,7 +180,12 @@ function App() {
 
             {/* <option value="60000">1 mins (standard)</option> */}
             {/* <option value="1500">1.5 seconds (standard)</option> */}
-            {options.filter((o:any) => o.value === (state.keyChangeInterval+""))}
+            {options.filter((o:any) => {
+              const res = o.props.value === (state.keyChangeInterval+"")
+              // console.log(o, res ? "truee" : "faalse")
+              // debugger
+              return res
+            })}
 
             {options}
 
@@ -195,7 +203,13 @@ function App() {
               controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
             }}>
 
-            <option value="1500">1.5 seconds (standard)</option>
+            {/* <option value="1500">1.5 seconds (standard)</option> */}
+            {options.filter((o:any) => {
+              const res = o.props.value === (state.numberChangeInterval+"")
+              // console.log(o, res ? "truee" : "faalse")
+              // debugger
+              return res
+            })}
 
             {options}
 
