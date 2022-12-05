@@ -64,7 +64,6 @@ export const absoluteKeys = [
     "G#",
     "A#",
 
-    ...solmisation,
 
     // "E#",
     // "H#",
