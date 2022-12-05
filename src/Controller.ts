@@ -28,7 +28,21 @@ export const flatKeys = [
     "Bb Dur",
 ]
 
-export const keys = [
+const solmisation = [
+    "Do",
+    "Ra",
+    "Re",
+    "Me",
+    "Mi",
+    "Fa",
+    "Se",
+    "So",
+    "Le",
+    "La",
+    "Ti",
+]
+
+export const absoluteKeys = [
 
     "F Dur",
     "C Dur",
@@ -50,15 +64,10 @@ export const keys = [
     "G#",
     "A#",
 
+    ...solmisation,
 
     // "E#",
     // "H#",
-
-
-
-
-
-
 
 
     // "A Moll",
@@ -189,6 +198,9 @@ export enum Order {
 
 const startKeyInterval = 1500
 const startNumberInterval = 1500
+
+// const keys = absoluteKeys
+export const keys = [...absoluteKeys, ...solmisation]
 
 export default class RandomController {
 
