@@ -1,5 +1,37 @@
 import { Subject } from "rxjs"
 
+export const solmisationColors = [
+    "#138708",//"Do", grün ionisch
+    "",//"Ra",
+    "#3cd6d4",//"Re", türkis
+    "",//"Me",
+    "#b31212",//"Mi", phrygisch
+    "#ed7505",//"Fa", orange lydisch
+    "",//"Se",
+    "#ac1bfa",//"So", purple mixo
+    "",//"Le",
+    "#ffdb38",//"La", gelb moll
+    "#996100",//"Ti", braun lokrisch
+]
+
+export function colorBody(solmisationSymbol:string|undefined, justWhite:boolean=true) {
+    let color = "white"
+    if (solmisationSymbol && !justWhite) {
+        const index = solmisation.indexOf(solmisationSymbol)
+        if (index>-1) {
+            if (solmisationColors[index])
+            color = solmisationColors[index]
+
+            console.log("Color! :)", color, index, solmisationColors,)
+        }
+    }
+    const body = document.querySelector("body")
+
+    if (body) {
+        body.style.background = color
+    }
+
+}
 
 export const baseKeys = [
 
@@ -28,7 +60,7 @@ export const flatKeys = [
     "Bb Dur",
 ]
 
-const solmisation = [
+export const solmisation = [
     "Do",
     "Ra",
     "Re",
@@ -185,6 +217,7 @@ export interface IState {
     showScaleNotes:boolean
     hideNextButtons:boolean
     hideNumber:boolean
+    showColors:boolean
 }
 
 export enum Order {
@@ -202,6 +235,8 @@ const startNumberInterval = 1500
 export const keys = [...absoluteKeys, ...solmisation]
 
 export default class RandomController {
+
+    private _showColors = false
 
     private _key = keys[1]
     private _number = numbers[1]
@@ -241,6 +276,16 @@ export default class RandomController {
         this._numberChangeInterval = n
         this.publish()
     }
+
+    public set showColors(boool:boolean) {
+        this._showColors = boool
+        this.publish()
+    }
+
+    public get showColors() {
+        return this._showColors
+    }
+
     public set keyChangeInterval(n : number) {
         this._keyChangeInterval = n
         this.publish()
@@ -310,26 +355,43 @@ export default class RandomController {
     public startIntervals(keyInterval: number, numberInterval: number) {
         console.log("Start ----------", keyInterval, numberInterval)
 
-        if (this._numberIntervalId !== undefined) {
-            window.clearInterval(this._numberIntervalId)
-        }
+        this.startNumberInterval(numberInterval)
+        this.startKeyInterval(keyInterval)
+        this.publish()
+    }
+
+    public startKeyInterval(keyInterval: number) {
+
         if (this._keyIntervalId !== undefined) {
             window.clearInterval(this._keyIntervalId)
         }
 
 
-        this._numberChangeInterval = numberInterval
         this._keyChangeInterval = keyInterval
         console.log(this.state)
 
         this._keyIntervalId = window.setInterval(() => {
             this.nextKey()
         }, keyInterval)
+
+
+    }
+
+    public startNumberInterval(numberInterval: number) {
+        
+        if (this._numberIntervalId !== undefined) {
+            window.clearInterval(this._numberIntervalId)
+        }
+
+
+        this._numberChangeInterval = numberInterval
+
+        console.log(this.state)
+
         this._numberIntervalId = window.setInterval(() => {
             this.nextNumber()
         }, numberInterval)
 
-        this.publish()
 
     }
 
@@ -345,6 +407,7 @@ export default class RandomController {
             hideNumber: this._hideNumber,
             hideNextButtons: this._hideNextButtons,
             showScaleNotes: this._showScaleNotes,
+            showColors:this.showColors
         }
     }
 
@@ -354,6 +417,7 @@ export default class RandomController {
     }
 
     public nextNumber() {
+        // clearInterval(this.numberChangeInterval)
         let n = "0"
         let i = 0
         while (n === "0" && i < 100) {
@@ -361,6 +425,7 @@ export default class RandomController {
             i++
         }
         this._number = n
+        this.startNumberInterval(this._numberChangeInterval)
         this.publish()
     }
 

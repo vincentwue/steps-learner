@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import RandomController, { baseKeys, flatKeys, IState, keys, numbers, Order, sharpKeys } from './Controller';
+import RandomController, { baseKeys, colorBody, flatKeys, IState, keys, numbers, Order, sharpKeys, solmisation } from './Controller';
 
 import classes from "./App.module.css"
 import { getNoteFromStep, Scales } from './scales';
@@ -53,6 +53,7 @@ function Learner() {
 
   const [state, setState] = useState<IState>()
 
+
   useEffect(() => {
     setState(controller.state)
     controller.onChange.subscribe(state => {
@@ -61,6 +62,25 @@ function Learner() {
   }, [controller, setState])
 
   console.log(state)
+  const key = state && !state.filterDurMoll ? state?.key : 
+  state?.key?.replace(" Dur", "")
+  .replace(" Moll", "")
+  // .replace(" ionisch", "")
+  // .replace(" phrygisch", "")
+  // .replace(" dorisch", "")
+  // .replace(" mixolydisch", "")
+  // .replace(" lydisch", "")
+  // .replace(" aeolisch", "")
+  // .replace(" lokrisch", "")
+  const number = state && !state.showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
+
+
+  useEffect(()=>{
+
+
+    colorBody(state?.key, state?.showColors)
+    
+  }, [state])
 
   const ignore = [...keys, ...numbers].map(s => {
     return <React.Fragment>
@@ -83,8 +103,6 @@ function Learner() {
 
   if (!state) return null
 
-  const key = !state.filterDurMoll ? state?.key : state?.key?.replace(" Dur", "").replace(" Moll", "")
-  const number = !state.showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
 
   return (
     <div className="App">
@@ -103,9 +121,12 @@ function Learner() {
           <div className={classes.number}>{number}</div>
 
         }
+        <br />
         {!state.hideNextButtons &&
           <React.Fragment>
             <div><button className="nextKey" onClick={e => controller.nextKey()}>next key</button></div>
+            <br />
+            <br />
             <div><button className="nextStep" onClick={e => controller.nextNumber()} style={{ display: state.hideNumber ? "none" : "" }}>next step</button></div>
           </React.Fragment>
         }
@@ -127,6 +148,7 @@ function Learner() {
         <button style={{ backgroundColor: state.filterDurMoll ? "green" : "initial" }}
           onClick={e => {
             controller.filterDurMoll = !state.filterDurMoll
+
           }}>filter dur moll</button>
       </div>
       <div>
@@ -176,6 +198,9 @@ function Learner() {
           controller.ignore = [...sharpKeys, ...flatKeys]
         }
       }}>base notes</button></div>
+      <div><button onClick={e => {
+        controller.showColors = !controller.showColors 
+      }}>show solmi colors</button></div>
 
 
       <br />
