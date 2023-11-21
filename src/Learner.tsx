@@ -113,7 +113,7 @@ function Learner() {
         setFilterDurMoll(true)
       }}>learn hashmap</button></div> */}
 
-      <div className={classes.flexrow}>
+      <div className={classes.flexrow1} >
 
 
 
@@ -138,7 +138,7 @@ function Learner() {
         </select>
       </div>
 
-      <div className={classes.flexrow}>
+      <div className={classes.flexrow1}>
 
 
 
@@ -161,7 +161,7 @@ function Learner() {
 
         </select>
       </div>
-      <div className={classes.flexrow}>
+      <div className={classes.flexrow1}>
 
 
 
@@ -192,17 +192,28 @@ function Learner() {
 
 
 
+
+
+
+
+
+
+
       <div className={classes.box} >
-        
+
+
+
+
+
         <div className={classes.key}>{
           key
         }</div>
         {!state.hideNumber &&
-        <React.Fragment>
+          <React.Fragment>
 
-          <div className={classes.number2}>{number2}</div>
-          <div className={classes.number}>{number}</div>
-        </React.Fragment>
+            <div className={classes.number2}>{number2}</div>
+            <div className={classes.number}>{number}</div>
+          </React.Fragment>
 
         }
         <br />
