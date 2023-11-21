@@ -208,10 +208,10 @@ function Learner() {
         <div className={classes.key}>{
           key
         }</div>
+        <div className={classes.number2}>{number2}</div>
         {!state.hideNumber &&
           <React.Fragment>
 
-            <div className={classes.number2}>{number2}</div>
             <div className={classes.number}>{number}</div>
           </React.Fragment>
 
@@ -239,6 +239,14 @@ function Learner() {
           }}>hide number</button>
       </div>
 
+      {/* <div>
+        <button
+          style={{ backgroundColor: state.hideNumber2 ? "green" : "initial" }}
+          onClick={e => {
+
+            controller.hideNumber2 = !state.hideNumber2
+          }}>hide mode</button>
+      </div> */}
 
       <div>
         <button style={{ backgroundColor: state.filterDurMoll ? "green" : "initial" }}
