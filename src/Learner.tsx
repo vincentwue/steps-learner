@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import RandomController, { baseKeys, colorBody, flatKeys, IState, keys, numbers, Order, sharpKeys, solmisation } from './Controller';
+import RandomController, { baseKeys, colorBody, flatKeys, IState, keys, numbers, Order, otherThanStandardSeven, sharpKeys, solmisation } from './Controller';
 
 import classes from "./App.module.css"
 import { getNoteFromStep, Scales } from './scales';
@@ -62,9 +62,9 @@ function Learner() {
   }, [controller, setState])
 
   console.log(state)
-  const key = state && !state.filterDurMoll ? state?.key : 
-  state?.key?.replace(" Dur", "")
-  .replace(" Moll", "")
+  const key = state && !state.filterDurMoll ? state?.key :
+    state?.key?.replace(" Dur", "")
+      .replace(" Moll", "")
   // .replace(" ionisch", "")
   // .replace(" phrygisch", "")
   // .replace(" dorisch", "")
@@ -73,13 +73,14 @@ function Learner() {
   // .replace(" aeolisch", "")
   // .replace(" lokrisch", "")
   const number = state && !state.showScaleNotes ? state?.number : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
+  const number2 = state && !state.showScaleNotes ? state?.number2 : getNoteFromStep(state?.key, state?.number) ?? "no note representation found, only choose 1-7"
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
 
     colorBody(state?.key, state?.showColors)
-    
+
   }, [state])
 
   const ignore = [...keys, ...numbers].map(s => {
@@ -112,19 +113,98 @@ function Learner() {
         setFilterDurMoll(true)
       }}>learn hashmap</button></div> */}
 
+      <div className={classes.flexrow}>
+
+
+
+        key change interval:
+        <select name="keys" id="keyID"
+          onChange={e => {
+            console.log("ONCHANGE1", e.target.value)
+            controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval, controller.state.numberChangeInterval2)
+          }}>
+
+          {/* <option value="60000">1 mins (standard)</option> */}
+          {/* <option value="1500">1.5 seconds (standard)</option> */}
+          {options.filter((o: any) => {
+            const res = o.props.value === (state.keyChangeInterval + "")
+            // console.log(o, res ? "truee" : "faalse")
+            // debugger
+            return res
+          })}
+
+          {options}
+
+        </select>
+      </div>
+
+      <div className={classes.flexrow}>
+
+
+
+        mode change interval:
+        <select name="numbers" id="numberID" /* value={state?.numberChangeInterval.toString() && "2000"} */
+          onChange={e => {
+            console.log("ONCHANGE2", e.target.value)
+            controller.startIntervals(controller.state.keyChangeInterval, controller.state.numberChangeInterval, parseFloat(e.target.value))
+          }}>
+
+          {/* <option value="1500">1.5 seconds (standard)</option> */}
+          {options.filter((o: any) => {
+            const res = o.props.value === (state.numberChangeInterval2 + "")
+            // console.log(o, res ? "truee" : "faalse")
+            // debugger
+            return res
+          })}
+
+          {options}
+
+        </select>
+      </div>
+      <div className={classes.flexrow}>
+
+
+
+        step change interval:
+        <select name="numbers2" id="number2ID" /* value={state?.numberChangeInterval.toString() && "2000"} */
+          onChange={e => {
+            console.log("ONCHANGE2", e.target.value)
+            controller.startIntervals(controller.state.numberChangeInterval, parseFloat(e.target.value), controller.state.numberChangeInterval2)
+          }}>
+
+          {/* <option value="1500">1.5 seconds (standard)</option> */}
+          {options.filter((o: any) => {
+            const res = o.props.value === (state.numberChangeInterval + "")
+            // console.log(o, res ? "truee" : "faalse")
+            // debugger
+            return res
+          })}
+
+          {options}
+
+        </select>
+      </div>
+
 
       <div className={classes.box}>
         <div className={classes.key}>{
           key
         }</div>
         {!state.hideNumber &&
+        <div>
+
+          <div className={classes.number}>{number2}</div>
           <div className={classes.number}>{number}</div>
+        </div>
 
         }
         <br />
         {!state.hideNextButtons &&
           <React.Fragment>
             <div><button className="nextKey" onClick={e => controller.nextKey()}>next key</button></div>
+            <br />
+            <br />
+            <div><button className="nextMode" onClick={e => controller.nextNumber2()}>next mode</button></div>
             <br />
             <br />
             <div><button className="nextStep" onClick={e => controller.nextNumber()} style={{ display: state.hideNumber ? "none" : "" }}>next step</button></div>
@@ -172,95 +252,52 @@ function Learner() {
         if (state?.ignore.length === 0) {
           controller.ignore = keys
         } else {
-          controller.ignore = []
+          controller.ignore = [...solmisation, ...otherThanStandardSeven]
         }
       }}>all</button></div>
+
       <div><button onClick={e => {
         if (state?.ignore.length === 0) {
           controller.ignore = keys
         } else {
           // controller.ignore = []
-          controller.ignore = [...flatKeys, ...baseKeys]
+          controller.ignore = [...flatKeys, ...baseKeys, ...solmisation]
         }
       }}>sharps</button></div>
+
       <div><button onClick={e => {
         if (state?.ignore.length === 0) {
           controller.ignore = keys
         } else {
           controller.ignore = []
-          controller.ignore = [...sharpKeys, ...baseKeys]
+          controller.ignore = [...sharpKeys, ...baseKeys, ...solmisation]
         }
       }}>flats</button></div>
+
       <div><button onClick={e => {
         if (state?.ignore.length === 0) {
           controller.ignore = keys
         } else {
-          controller.ignore = [...sharpKeys, ...flatKeys]
+          controller.ignore = [...sharpKeys, ...flatKeys, ...solmisation]
         }
       }}>base notes</button></div>
-      <div><button onClick={e => {
+
+      {/* <div><button onClick={e => {
         controller.showColors = !controller.showColors 
-      }}>show solmi colors</button></div>
+      }}>show solmi colors</button></div> */}
 
 
       <br />
 
       <div className={classes.ignore}>{ignore}</div>
 
-<br />
+      <br />
       <div className={classes.flexcolumn}>
 
 
 
 
-        <div className={classes.flexrow}>
 
-
-
-          key change interval:
-          <select name="keys" id="keyID"
-            onChange={e => {
-              console.log("ONCHANGE1", e.target.value)
-              controller.startIntervals(parseFloat(e.target.value), controller.state.numberChangeInterval)
-            }}>
-
-            {/* <option value="60000">1 mins (standard)</option> */}
-            {/* <option value="1500">1.5 seconds (standard)</option> */}
-            {options.filter((o: any) => {
-              const res = o.props.value === (state.keyChangeInterval + "")
-              // console.log(o, res ? "truee" : "faalse")
-              // debugger
-              return res
-            })}
-
-            {options}
-
-          </select>
-        </div>
-
-        <div className={classes.flexrow}>
-
-
-
-          step change interval:
-          <select name="numbers" id="numberID" /* value={state?.numberChangeInterval.toString() && "2000"} */
-            onChange={e => {
-              console.log("ONCHANGE2", e.target.value)
-              controller.startIntervals(controller.state.keyChangeInterval, parseFloat(e.target.value))
-            }}>
-
-            {/* <option value="1500">1.5 seconds (standard)</option> */}
-            {options.filter((o: any) => {
-              const res = o.props.value === (state.numberChangeInterval + "")
-              // console.log(o, res ? "truee" : "faalse")
-              // debugger
-              return res
-            })}
-
-            {options}
-
-          </select>
-        </div>
 
         <div className={classes.flexrow}>
 

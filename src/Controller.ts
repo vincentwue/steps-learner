@@ -11,6 +11,7 @@ export const solmisationColors = [
     "#ac1bfa",//"So", purple mixo
     "",//"Le",
     "#ffdb38",//"La", gelb moll
+    "",//"Li",
     "#996100",//"Ti", braun lokrisch
 ]
 
@@ -70,6 +71,16 @@ export const solmisation = [
     "Se",
     "So",
     "Le",
+    "La",
+    "Li",
+    "Ti",
+]
+export const solmisation7 = [
+    "Do",
+    "Re",
+    "Mi",
+    "Fa",
+    "So",
     "La",
     "Ti",
 ]
@@ -138,24 +149,54 @@ export const numbers = [
     "b2",
     "#2",
     "b9",
+    "8",
     "9",
     "#9",
     
     
+    "#4",
     "11",
     "#11",
+
     "b5",
     "#5",
     
-    "13",
-    "b13",
-    
-    "#4",
-
     "b6",
+    "b13",
+    "13",
+    
+
 
     "b7",
     
+]
+
+export const otherThanStandardSeven = [
+    "b3",
+    
+    
+    "b2",
+    "#2",
+    "b9",
+    "8",
+    "9",
+    "#9",
+    
+    
+    "#4",
+    "11",
+    "#11",
+
+    "b5",
+    "#5",
+    
+    "b6",
+    "b13",
+    "13",
+    
+
+
+    "b7",
 ]
 
 const startIgnore = [
@@ -209,10 +250,12 @@ const startIgnore = [
 
 export interface IState {
     number: string
+    number2: string
     key: string
     ignore: string[]
     keyChangeInterval: number
     numberChangeInterval: number
+    numberChangeInterval2: number
     filterDurMoll:boolean
     showScaleNotes:boolean
     hideNextButtons:boolean
@@ -230,9 +273,10 @@ export enum Order {
 
 const startKeyInterval = 1500
 const startNumberInterval = 1500
+const startNumberInterval2 = 1500
 
-// const keys = absoluteKeys
-export const keys = [...absoluteKeys, ...solmisation]
+export const keys = absoluteKeys
+// export const keys = [...absoluteKeys, ...solmisation]
 
 export default class RandomController {
 
@@ -240,13 +284,15 @@ export default class RandomController {
 
     private _key = keys[1]
     private _number = numbers[1]
+    private _number2 = numbers[1]
     private _ignore: string[] = []
 
     private _onChange = new Subject<IState>()
 
     private _numberChangeInterval: number = startNumberInterval
+    private _numberChangeInterval2: number = startNumberInterval2
     private _keyChangeInterval: number = startKeyInterval
-
+    
     private _order: Order = Order.Quinten
 
     private _filterDurMoll = false
@@ -302,9 +348,6 @@ export default class RandomController {
     public get hideNumber() {
         return this._hideNumber
     }
-    public get numberChangeInterval() {
-        return this._numberChangeInterval
-    }
     public get keyChangeInterval() {
         return this._keyChangeInterval
     }
@@ -313,7 +356,7 @@ export default class RandomController {
     private saveToLocalStorage() {
         // debugger
         localStorage.setItem("settings", JSON.stringify(this.state))
-        console.log("saved to localStorage")
+        // console.log("saved to localStorage")
     }
 
     private loadFromLocalStorage() {
@@ -336,7 +379,7 @@ export default class RandomController {
         
         this.loadFromLocalStorage()
         
-        this.startIntervals(this._keyChangeInterval, this._numberChangeInterval)
+        this.startIntervals(this._keyChangeInterval, this._numberChangeInterval, this._numberChangeInterval2)
         this.nextNumber()
         this.nextKey()
 
@@ -347,15 +390,17 @@ export default class RandomController {
 
     private _keyIntervalId: number | undefined
     private _numberIntervalId: number | undefined
+    private _numberIntervalId2: number | undefined
 
     public set order(order: Order) {
         this._order = order
     }
 
-    public startIntervals(keyInterval: number, numberInterval: number) {
+    public startIntervals(keyInterval: number, numberInterval: number, numberInterval2:number) {
         console.log("Start ----------", keyInterval, numberInterval)
 
         this.startNumberInterval(numberInterval)
+        this.startNumberInterval2(numberInterval2)
         this.startKeyInterval(keyInterval)
         this.publish()
     }
@@ -368,7 +413,7 @@ export default class RandomController {
 
 
         this._keyChangeInterval = keyInterval
-        console.log(this.state)
+        console.log("start key interval")
 
         this._keyIntervalId = window.setInterval(() => {
             this.nextKey()
@@ -386,10 +431,30 @@ export default class RandomController {
 
         this._numberChangeInterval = numberInterval
 
-        console.log(this.state)
+        console.log("start number interval")
+
 
         this._numberIntervalId = window.setInterval(() => {
             this.nextNumber()
+        }, numberInterval)
+
+
+    }
+
+    public startNumberInterval2(numberInterval: number) {
+        
+        if (this._numberIntervalId2 !== undefined) {
+            window.clearInterval(this._numberIntervalId2)
+        }
+
+
+        this._numberChangeInterval2 = numberInterval
+
+        console.log("start number interval2")
+        
+
+        this._numberIntervalId2 = window.setInterval(() => {
+            this.nextNumber2()
         }, numberInterval)
 
 
@@ -399,10 +464,12 @@ export default class RandomController {
     public get state() {
         return {
             number: this._number,
+            number2: this._number2,
             key: this._key,
             ignore: this._ignore,
             keyChangeInterval: this._keyChangeInterval,
             numberChangeInterval: this._numberChangeInterval,
+            numberChangeInterval2: this._numberChangeInterval2,
             filterDurMoll: this._filterDurMoll,
             hideNumber: this._hideNumber,
             hideNextButtons: this._hideNextButtons,
@@ -425,7 +492,20 @@ export default class RandomController {
             i++
         }
         this._number = n
-        this.startNumberInterval(this._numberChangeInterval)
+        // this.startNumberInterval(this._numberChangeInterval)
+        this.publish()
+    }
+
+    public nextNumber2() {
+        // clearInterval(this.numberChangeInterval)
+        let n = "0"
+        let i = 0
+        while (n === "0" && i < 100) {
+            n = randomFromArray(numbers.filter(n => n !== this._number2).filter(n => !this._ignore.includes(n)))
+            i++
+        }
+        this._number2 = n
+        // this.startNumberInterval2(this._numberChangeInterval2)
         this.publish()
     }
 
