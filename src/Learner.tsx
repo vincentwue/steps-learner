@@ -184,18 +184,25 @@ function Learner() {
 
         </select>
       </div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
 
-      <div className={classes.box}>
+
+      <div className={classes.box} >
+        
         <div className={classes.key}>{
           key
         }</div>
         {!state.hideNumber &&
-        <div>
+        <React.Fragment>
 
-          <div className={classes.number}>{number2}</div>
+          <div className={classes.number2}>{number2}</div>
           <div className={classes.number}>{number}</div>
-        </div>
+        </React.Fragment>
 
         }
         <br />
@@ -203,9 +210,7 @@ function Learner() {
           <React.Fragment>
             <div><button className="nextKey" onClick={e => controller.nextKey()}>next key</button></div>
             <br />
-            <br />
             <div><button className="nextMode" onClick={e => controller.nextNumber2()}>next mode</button></div>
-            <br />
             <br />
             <div><button className="nextStep" onClick={e => controller.nextNumber()} style={{ display: state.hideNumber ? "none" : "" }}>next step</button></div>
           </React.Fragment>

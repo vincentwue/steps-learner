@@ -36,10 +36,17 @@ body {
     margin:20px;
     margin-bottom: 100px;
 }
+.number2 {
+    font-size: 5em;
+    font-size: 3em;
+    margin:20px;
+    margin-bottom: 40px;
+}
 
 .key {
     font-size: 4em;
-    margin:60px
+    margin:60px;
+    margin-bottom:40px;
 
 }
 
