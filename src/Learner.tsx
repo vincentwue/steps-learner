@@ -79,7 +79,8 @@ function Learner() {
   useEffect(() => {
 
 
-    colorBody(state?.key, state?.showColors)
+    // colorBody(state?.key, state?.showColors)
+    colorBody(state?.number2, state?.showColors)
 
   }, [state])
 
@@ -110,9 +111,9 @@ function Learner() {
           if (state) {
 
             if (!state.number2Ignore.includes(s)) {
-              controller.number2Ignore = [...state.number2Ignore, s]
+              controller._number2Ignore = [...state.number2Ignore, s]
             } else {
-              controller.number2Ignore = state.number2Ignore.filter(item => item !== s)
+              controller._number2Ignore = state.number2Ignore.filter(item => item !== s)
             }
 
             controller.publish()
@@ -326,9 +327,9 @@ function Learner() {
         }
       }}>base notes</button></div>
 
-      {/* <div><button onClick={e => {
+      <div><button onClick={e => {
         controller.showColors = !controller.showColors 
-      }}>show solmi colors</button></div> */}
+      }}>show colors</button></div>
 
 
       <br />

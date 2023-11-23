@@ -15,15 +15,25 @@ export const solmisationColors = [
     "#996100",//"Ti", braun lokrisch
 ]
 
-export function colorBody(solmisationSymbol:string|undefined, justWhite:boolean=true) {
+
+
+export function colorBody(symbol: string | undefined, justWhite: boolean = true) {
     let color = "white"
-    if (solmisationSymbol && !justWhite) {
-        const index = solmisation.indexOf(solmisationSymbol)
-        if (index>-1) {
+    // debugger
+    if (symbol && !justWhite) {
+        const index = solmisation.indexOf(symbol)
+        const index2 = numbers1To7.indexOf(symbol)
+        if (index > -1) {
             if (solmisationColors[index])
-            color = solmisationColors[index]
+                color = solmisationColors[index]
 
             console.log("Color! :)", color, index, solmisationColors,)
+        }
+        if (index2 > -1) {
+            if (numbers1To7Colors[index2])
+                color = numbers1To7Colors[index2]
+
+            console.log("Color! :)", color, index, numbers1To7Colors,)
         }
     }
     const body = document.querySelector("body")
@@ -94,7 +104,7 @@ export const absoluteKeys = [
     "A Dur ",
     "E Dur",
     "B Dur ",
-    
+
     "Gb Dur",
     "Db Dur",
     "Ab Dur",
@@ -143,8 +153,23 @@ export const numbers1To7 = [
     "7",
 ]
 
+export const numbers1To7Colors = [
+    "#138708",//"Do", grün ionisch
+    // "",//"Ra",
+    "#3cd6d4",//"Re", türkis
+    // "",//"Me",
+    "#b31212",//"Mi", phrygisch
+    "#ed7505",//"Fa", orange lydisch
+    // "",//"Se",
+    "#ac1bfa",//"So", purple mixo
+    // "",//"Le",
+    "#ffdb38",//"La", gelb moll
+    // "",//"Li",
+    "#996100",//"Ti", braun lokrisch
+]
+
 export const numbers = [
-    
+
     "1",
     "2",
     "3",
@@ -152,58 +177,58 @@ export const numbers = [
     "5",
     "6",
     "7",
-    
+
     "b3",
-    
-    
+
+
     "b2",
     "#2",
     "b9",
     "8",
     "9",
     "#9",
-    
-    
+
+
     "#4",
     "11",
     "#11",
 
     "b5",
     "#5",
-    
+
     "b6",
     "b13",
     "13",
-    
+
 
 
     "b7",
-    
+
 ]
 
 export const otherThanStandardSeven = [
     "b3",
-    
-    
+
+
     "b2",
     "#2",
     "b9",
     "8",
     "9",
     "#9",
-    
-    
+
+
     "#4",
     "11",
     "#11",
 
     "b5",
     "#5",
-    
+
     "b6",
     "b13",
     "13",
-    
+
 
 
     "b7",
@@ -219,7 +244,7 @@ const startIgnore = [
     "A Dur ",
     "E Dur",
     "B Dur ",
-    
+
     "Gb Dur",
     // "Db Dur",
     // "Ab Dur",
@@ -233,23 +258,23 @@ const startIgnore = [
     "A#",
 
     "b3",
-    
-    
+
+
     "b2",
     "#2",
     "b9",
     "9",
     "#9",
-    
-    
+
+
     "11",
     "#11",
     "b5",
     "#5",
-    
+
     "13",
     "b13",
-    
+
     "#4",
 
     "b6",
@@ -267,11 +292,11 @@ export interface IState {
     keyChangeInterval: number
     numberChangeInterval: number
     numberChangeInterval2: number
-    filterDurMoll:boolean
-    showScaleNotes:boolean
-    hideNextButtons:boolean
-    hideNumber:boolean
-    showColors:boolean
+    filterDurMoll: boolean
+    showScaleNotes: boolean
+    hideNextButtons: boolean
+    hideNumber: boolean
+    showColors: boolean
 }
 
 export enum Order {
@@ -297,14 +322,14 @@ export default class RandomController {
     private _number = numbers[1]
     private _number2 = numbers[1]
     private _ignore: string[] = []
-    public number2Ignore: string[] = []
+    public _number2Ignore: string[] = []
 
     private _onChange = new Subject<IState>()
 
     private _numberChangeInterval: number = startNumberInterval
     private _numberChangeInterval2: number = startNumberInterval2
     private _keyChangeInterval: number = startKeyInterval
-    
+
     private _order: Order = Order.Quinten
 
     private _filterDurMoll = false
@@ -312,30 +337,30 @@ export default class RandomController {
     private _hideNextButtons = false
     private _hideNumber = false
 
-    public set filterDurMoll(bool : boolean) {
+    public set filterDurMoll(bool: boolean) {
         this._filterDurMoll = bool
         this.publish()
     }
 
-    public set showScaleNotes(bool : boolean) {
+    public set showScaleNotes(bool: boolean) {
         this._showScaleNotes = bool
         this.publish()
     }
-    public set hideNextButtons(bool : boolean) {
+    public set hideNextButtons(bool: boolean) {
         this._hideNextButtons = bool
         this.publish()
     }
-    public set hideNumber(bool : boolean) {
-        
+    public set hideNumber(bool: boolean) {
+
         this._hideNumber = bool
         this.publish()
     }
-    public set numberChangeInterval(n : number) {
+    public set numberChangeInterval(n: number) {
         this._numberChangeInterval = n
         this.publish()
     }
 
-    public set showColors(boool:boolean) {
+    public set showColors(boool: boolean) {
         this._showColors = boool
         this.publish()
     }
@@ -344,7 +369,7 @@ export default class RandomController {
         return this._showColors
     }
 
-    public set keyChangeInterval(n : number) {
+    public set keyChangeInterval(n: number) {
         this._keyChangeInterval = n
         this.publish()
     }
@@ -376,8 +401,8 @@ export default class RandomController {
         if (json) {
             console.log("loaded from localStorage")
             const ob = JSON.parse(json)
-            for (const [key, value ] of Object.entries(ob)) {
-                
+            for (const [key, value] of Object.entries(ob)) {
+
                 (this as any)["_" + key] = value;
                 console.log(key, value, this)
             }
@@ -388,15 +413,15 @@ export default class RandomController {
 
     constructor() {
 
-        
+
         this.loadFromLocalStorage()
-        
+
         this.startIntervals(this._keyChangeInterval, this._numberChangeInterval, this._numberChangeInterval2)
         this.nextNumber()
         this.nextKey()
 
-        
-        
+
+
         this.publish()
     }
 
@@ -408,7 +433,7 @@ export default class RandomController {
         this._order = order
     }
 
-    public startIntervals(keyInterval: number, numberInterval: number, numberInterval2:number) {
+    public startIntervals(keyInterval: number, numberInterval: number, numberInterval2: number) {
         console.log("Start ----------", keyInterval, numberInterval)
 
         this.startNumberInterval(numberInterval)
@@ -435,7 +460,7 @@ export default class RandomController {
     }
 
     public startNumberInterval(numberInterval: number) {
-        
+
         if (this._numberIntervalId !== undefined) {
             window.clearInterval(this._numberIntervalId)
         }
@@ -454,7 +479,7 @@ export default class RandomController {
     }
 
     public startNumberInterval2(numberInterval: number) {
-        
+
         if (this._numberIntervalId2 !== undefined) {
             window.clearInterval(this._numberIntervalId2)
         }
@@ -463,7 +488,7 @@ export default class RandomController {
         this._numberChangeInterval2 = numberInterval
 
         console.log("start number interval2")
-        
+
 
         this._numberIntervalId2 = window.setInterval(() => {
             this.nextNumber2()
@@ -479,7 +504,7 @@ export default class RandomController {
             number2: this._number2,
             key: this._key,
             ignore: this._ignore,
-            number2Ignore:this.number2Ignore,
+            number2Ignore: this._number2Ignore,
             keyChangeInterval: this._keyChangeInterval,
             numberChangeInterval: this._numberChangeInterval,
             numberChangeInterval2: this._numberChangeInterval2,
@@ -487,7 +512,7 @@ export default class RandomController {
             hideNumber: this._hideNumber,
             hideNextButtons: this._hideNextButtons,
             showScaleNotes: this._showScaleNotes,
-            showColors:this.showColors,
+            showColors: this.showColors,
         }
     }
 
@@ -514,7 +539,7 @@ export default class RandomController {
         let n = "0"
         let i = 0
         while (n === "0" && i < 100) {
-            n = randomFromArray(numbers1To7.filter(n => n !== this._number2).filter(n => !this.number2Ignore.includes(n)))
+            n = randomFromArray(numbers1To7.filter(n => n !== this._number2).filter(n => !this._number2Ignore.includes(n)))
             i++
         }
         this._number2 = n
