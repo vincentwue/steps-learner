@@ -133,6 +133,16 @@ export const absoluteKeys = [
     // "Bb Moll",
 ]
 
+export const numbers1To7 = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+]
+
 export const numbers = [
     
     "1",
@@ -253,6 +263,7 @@ export interface IState {
     number2: string
     key: string
     ignore: string[]
+    number2Ignore: string[]
     keyChangeInterval: number
     numberChangeInterval: number
     numberChangeInterval2: number
@@ -286,6 +297,7 @@ export default class RandomController {
     private _number = numbers[1]
     private _number2 = numbers[1]
     private _ignore: string[] = []
+    public number2Ignore: string[] = []
 
     private _onChange = new Subject<IState>()
 
@@ -467,6 +479,7 @@ export default class RandomController {
             number2: this._number2,
             key: this._key,
             ignore: this._ignore,
+            number2Ignore:this.number2Ignore,
             keyChangeInterval: this._keyChangeInterval,
             numberChangeInterval: this._numberChangeInterval,
             numberChangeInterval2: this._numberChangeInterval2,
@@ -474,11 +487,11 @@ export default class RandomController {
             hideNumber: this._hideNumber,
             hideNextButtons: this._hideNextButtons,
             showScaleNotes: this._showScaleNotes,
-            showColors:this.showColors
+            showColors:this.showColors,
         }
     }
 
-    private publish() {
+    public publish() {
         this.saveToLocalStorage()
         this._onChange.next(this.state)
     }
@@ -501,7 +514,7 @@ export default class RandomController {
         let n = "0"
         let i = 0
         while (n === "0" && i < 100) {
-            n = randomFromArray(numbers.filter(n => n !== this._number2).filter(n => !this._ignore.includes(n)))
+            n = randomFromArray(numbers1To7.filter(n => n !== this._number2).filter(n => !this.number2Ignore.includes(n)))
             i++
         }
         this._number2 = n

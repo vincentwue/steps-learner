@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import RandomController, { baseKeys, colorBody, flatKeys, IState, keys, numbers, Order, otherThanStandardSeven, sharpKeys, solmisation } from './Controller';
+import RandomController, { baseKeys, colorBody, flatKeys, IState, keys, numbers, numbers1To7, Order, otherThanStandardSeven, sharpKeys, solmisation } from './Controller';
 
 import classes from "./App.module.css"
 import { getNoteFromStep, Scales } from './scales';
@@ -96,6 +96,26 @@ function Learner() {
             } else {
               controller.ignore = state.ignore.filter(item => item !== s)
             }
+
+          }
+        }}>{s}</button>
+    </React.Fragment>
+  })
+  const number2Ignorebuttons = numbers1To7.map(s => {
+    return <React.Fragment>
+      {s === "1" && <br></br>}
+      <button
+        className={(state?.number2Ignore.includes(s) ? classes.ignored : classes.included) + " " + classes.ignoreButton}
+        onClick={e => {
+          if (state) {
+
+            if (!state.number2Ignore.includes(s)) {
+              controller.number2Ignore = [...state.number2Ignore, s]
+            } else {
+              controller.number2Ignore = state.number2Ignore.filter(item => item !== s)
+            }
+
+            controller.publish()
 
           }
         }}>{s}</button>
@@ -313,8 +333,13 @@ function Learner() {
 
       <br />
 
+ignore key and number
       <div className={classes.ignore}>{ignore}</div>
-
+      <br />
+ignore mode
+      <br />
+      <div className={classes.ignore}>{number2Ignorebuttons}</div>
+   
       <br />
       <div className={classes.flexcolumn}>
 
